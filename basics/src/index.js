@@ -8,7 +8,7 @@ const openai = new OpenAI({
 });
 
 async function run() {
-  const userInput = "What is the meaning of life?";
+  const userInput = "How to learn AI with Node and Pythons ?";
 
   const response = await openai.chat.completions.create({
     model: "gpt-5.4-mini", // ✅ cheapest good model
@@ -18,9 +18,9 @@ async function run() {
         content: `${userInput} Answer in max 2 lines. Keep answers short and concise`,
       },
     ],
-    max_completion_tokens: 50, // ✅ biggest cost control
-    temperature: 0.5, // ✅ stable (less randomness = less tokens sometimes)
-    top_p: 1, // optional
+    max_completion_tokens: +process.env.MAX_COMPLETION_TOKENS || 50, // ✅ biggest cost control
+    temperature: +process.env.TEMPERATURE || 0.5, // ✅ stable (less randomness = less tokens sometimes)
+    top_p: +process.env.TOP_P || 1, // optional
   });
 
   console.log(`Response: ${response.choices[0].message.content}`);
