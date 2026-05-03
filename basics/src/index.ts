@@ -26,12 +26,14 @@ async function run() {
       //     content: `Sure! To learn AI with Node and Python, start with online courses on platforms like Coursera or Udemy. Practice coding AI projects using libraries like TensorFlow.js for Node and TensorFlow or PyTorch for Python.`,
       //   },
     ],
-    max_completion_tokens: +process.env.MAX_COMPLETION_TOKENS || 50, // ✅ biggest cost control
-    temperature: +process.env.TEMPERATURE || 0.5, // ✅ stable (less randomness = less tokens sometimes)
-    top_p: +process.env.TOP_P || 1, // optional
+    max_completion_tokens: Number(process.env.MAX_COMPLETION_TOKENS) || 50, // ✅ biggest cost control
+    temperature: Number(process.env.TEMPERATURE) || 0.5, // ✅ stable (less randomness = less tokens sometimes)
+    top_p: Number(process.env.TOP_P) || 1, // optional
   });
 
-  console.log(`Response: ${response.choices[0].message.content}`);
+  console.log(
+    `Response: ${response.choices[0]?.message?.content ?? "No response"}`,
+  );
 }
 
 run();
